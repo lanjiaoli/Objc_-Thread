@@ -29,11 +29,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z0Y-6R-Fe8">
-                                <rect key="frame" x="3" y="193" width="121" height="30"/>
+                                <rect key="frame" x="3" y="193" width="74" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="H9Y-Qd-AxM"/>
                                 </constraints>
-                                <state key="normal" title="CGDGroup按顺序"/>
+                                <state key="normal" title="group_wait"/>
                                 <connections>
                                     <action selector="GCDGroupSequeceAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lbq-Om-Gzh"/>
                                 </connections>
@@ -202,7 +202,29 @@
                     <view key="view" contentMode="scaleToFill" id="PwA-Db-fzy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I55-If-aFf">
+                                <rect key="frame" x="166" y="350.5" width="43" height="30"/>
+                                <state key="normal" title="queue"/>
+                                <connections>
+                                    <action selector="button:" destination="vhE-Rj-baa" eventType="touchUpInside" id="Fxx-Xk-A4e"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1h-yt-nuJ">
+                                <rect key="frame" x="164.5" y="300" width="46" height="30"/>
+                                <state key="normal" title="自定义"/>
+                                <connections>
+                                    <action selector="customAction:" destination="vhE-Rj-baa" eventType="touchUpInside" id="IBm-na-F1X"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="e1h-yt-nuJ" firstAttribute="centerX" secondItem="gzO-6o-2Zv" secondAttribute="centerX" id="8fJ-b0-K0R"/>
+                            <constraint firstItem="I55-If-aFf" firstAttribute="centerY" secondItem="gzO-6o-2Zv" secondAttribute="centerY" id="HVm-kp-Z39"/>
+                            <constraint firstItem="I55-If-aFf" firstAttribute="centerX" secondItem="gzO-6o-2Zv" secondAttribute="centerX" id="QAF-wt-QmW"/>
+                            <constraint firstItem="I55-If-aFf" firstAttribute="top" secondItem="e1h-yt-nuJ" secondAttribute="bottom" constant="20.5" id="ozL-cQ-qbo"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="gzO-6o-2Zv"/>
                     </view>
                     <navigationItem key="navigationItem" id="t5Z-XD-rUC"/>

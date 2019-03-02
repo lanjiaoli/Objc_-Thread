@@ -83,7 +83,7 @@
  GCD Group
  */
 - (IBAction)GCDGroupSequeceAction:(id)sender {
-    NSLog(@"按顺序执行");
+    NSLog(@"所有都完成了在执行");
     dispatch_group_t group = dispatch_group_create();
     
     dispatch_queue_t queuqe = dispatch_queue_create("serialQueue", DISPATCH_QUEUE_CONCURRENT);
@@ -99,9 +99,10 @@
 
         });
     });
-    dispatch_group_enter(group);
     dispatch_group_async(group, queuqe, ^{
         NSLog(@"当前任务2");
+        dispatch_group_enter(group);
+
         dispatch_async(queuqe, ^{
             NSLog(@"追加任务2 :当前线程%@",[NSThread currentThread]);
             dispatch_group_leave(group);
@@ -125,18 +126,18 @@
     /*
      同步串行 :在同一线程下按顺序进行 FIFO
      */
-    dispatch_queue_t queuqe = dispatch_queue_create("serialQueue", DISPATCH_QUEUE_SERIAL);
+    dispatch_queue_t queue = dispatch_queue_create("serialQueue", DISPATCH_QUEUE_SERIAL);
     
-    dispatch_sync(queuqe, ^{
-        NSLog(@"disatch1 :当前线程%@",[NSThread currentThread]);
+    dispatch_sync(queue, ^{
+        NSLog(@"dispatch1 :当前线程%@",[NSThread currentThread]);
 
     });
-    dispatch_sync(queuqe, ^{
-        NSLog(@"disatch2 :当前线程%@",[NSThread currentThread]);
+    dispatch_sync(queue, ^{
+        NSLog(@"dispatch2 :当前线程%@",[NSThread currentThread]);
         
     });
-    dispatch_sync(queuqe, ^{
-        NSLog(@"disatch3 :当前线程%@",[NSThread currentThread]);
+    dispatch_sync(queue, ^{
+        NSLog(@"dispatch3 :当前线程%@",[NSThread currentThread]);
         
     });
     
@@ -146,42 +147,43 @@
     /*
      同步并行 :在同一线程下按顺序进行 FIFO
      */
-    dispatch_queue_t queuqe = dispatch_queue_create("syncConcurrentQueue", DISPATCH_QUEUE_CONCURRENT);
+    dispatch_queue_t queue = dispatch_queue_create("syncConcurrentQueue", DISPATCH_QUEUE_CONCURRENT);
     
-    dispatch_sync(queuqe, ^{
+    dispatch_sync(queue, ^{
         NSLog(@"disatch1 :当前线程%@",[NSThread currentThread]);
         
     });
-    dispatch_sync(queuqe, ^{
+    dispatch_sync(queue, ^{
         NSLog(@"disatch2 :当前线程%@",[NSThread currentThread]);
         
     });
-    dispatch_sync(queuqe, ^{
+    dispatch_sync(queue, ^{
         NSLog(@"disatch3 :当前线程%@",[NSThread currentThread]);
         
     });
 }
 #pragma mark - 异步 async
+static void extracted(dispatch_queue_t queue, NSString *queueStr) {
+    
+    dispatch_async(queue, ^{
+        NSLog(@"%@ :当前线程%@",queueStr,[NSThread currentThread]);
+        
+    });
+}
+
 - (IBAction)GCDAsyncSerialQueue:(id)sender {
     NSLog(@"异步串行");
     /*
      异步串行：
      开启新的线程，在同一线程下按顺序执行 FIFO 先进先出
      */
-    dispatch_queue_t queuqe = dispatch_queue_create("asyncConcurrentQueue", DISPATCH_QUEUE_SERIAL);
+    dispatch_queue_t queue = dispatch_queue_create("asyncConcurrentQueue", DISPATCH_QUEUE_SERIAL);
     
-    dispatch_async(queuqe, ^{
-        NSLog(@"disatch1 :当前线程%@",[NSThread currentThread]);
-        
-    });
-    dispatch_async(queuqe, ^{
-        NSLog(@"disatch2 :当前线程%@",[NSThread currentThread]);
-        
-    });
-    dispatch_async(queuqe, ^{
-        NSLog(@"disatch3 :当前线程%@",[NSThread currentThread]);
-        
-    });
+    extracted(queue,@"disatch1");
+
+    extracted(queue,@"disatch2");
+
+    extracted(queue,@"disatch3");
 }
 - (IBAction)GCDAsyncConcurrent:(id)sender {
     NSLog(@"异步并发");
@@ -191,20 +193,9 @@
      可提高cpu的执行效率
      */
     dispatch_queue_t queuqe = dispatch_queue_create("aasyncConcurrentQueue", DISPATCH_QUEUE_CONCURRENT);
-    
-    dispatch_async(queuqe, ^{
-        NSLog(@"disatch1 :当前线程%@",[NSThread currentThread]);
-        
-    });
-    dispatch_async(queuqe, ^{
-        NSLog(@"disatch2 :当前线程%@",[NSThread currentThread]);
-        
-    });
-    dispatch_async(queuqe, ^{
-        NSLog(@"disatch3 :当前线程%@",[NSThread currentThread]);
-        
-    });
-
+    extracted(queuqe, @"disatch1");
+    extracted(queuqe, @"disatch2");
+    extracted(queuqe, @"disatch3");
 }
 
 
@@ -229,21 +220,13 @@
      */
     dispatch_queue_t queuqe = dispatch_queue_create("aasyncConcurrentQueue", DISPATCH_QUEUE_CONCURRENT);
     
-    dispatch_async(queuqe, ^{
-        NSLog(@"disatch1 :当前线程%@",[NSThread currentThread]);
-        
-    });
-    dispatch_async(queuqe, ^{
-        NSLog(@"disatch2 :当前线程%@",[NSThread currentThread]);
-        
-    });
+    extracted(queuqe, @"disatch1");
+    extracted(queuqe, @"disatch2");
     dispatch_barrier_sync(queuqe, ^{
         NSLog(@"栅栏");
     });
-    dispatch_async(queuqe, ^{
-        NSLog(@"disatch3 :当前线程%@",[NSThread currentThread]);
-        
-    });
+    extracted(queuqe, @"disatch3");
+
 }
 
 #pragma mark - GCD 信号量 semaphore_t

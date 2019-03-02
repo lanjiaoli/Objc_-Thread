@@ -16,7 +16,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+//    //主线程
+//    [NSThread mainThread];
+//
+//    //当前线程
+//    [NSThread currentThread];
+//
+//    //判断当前是否是多线程
+//    [NSThread isMultiThreaded];
+//
+//    //线程休眠
+//    [NSThread sleepForTimeInterval:1];
+//
+//    //在指定时间休眠
+//    [NSThread sleepUntilDate:[NSDate date]];
+//
+//    //退出线程
+//
+//    [NSThread exit];
+//    //取消操作,并不会直接取消，而是给线程对象添加了一个cancelled表示
+//    [[NSThread currentThread]cancel];
+    
 }
 
 - (IBAction)openThreadAction:(id)sender {
