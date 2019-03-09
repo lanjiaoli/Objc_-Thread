@@ -141,13 +141,39 @@ class是个结构体 结构体中有个instance_size字段，
 }
 
 ```
-
-
-
-
-
 6.KVO、KVC、归档,block，类的检测等等
 
+KVO:底层是通过runtime来实现的，当对象的属性被观察时，系统会在运行时动态的为这个对象创建一个子类，另外系统还偷偷地将对象的isa指针指向当对象所属类的子类，子类重写了父类的setKey方法，在willChangeValueForKey中获取旧值，didChangeValueForKey获取新值，然后发出通知，当前属性发生了变化。
+```
+const char * classChar = "JLNSNotifity_Person";
+    
+    const char * ivar = "age";
 
+    Class newClass = objc_allocateClassPair(self.class, classChar, 0);
+    BOOL flag =  class_addIvar(newClass, ivar, sizeof(NSInteger), 0, "@");
+    flag ? NSLog(@"成功"):NSLog(@"失败");
+    class_addMethod(newClass, @selector(newClassMethod), (IMP)newClassMethod, "");
+    
+    class_addMethod([self class], @selector(setName:), (IMP)setName, "");
+
+    objc_registerClassPair(newClass);
+    
+    //isa swizling 改变isa指针
+    object_setClass(self, newClass);
+
+    [self getAllPropertyWithClass:newClass];
+    [self getAllMethodWithClass:newClass];
+}
+void setName(id self,SEL _cmd,NSString *name){
+    Class cls = [self class];
+    object_setClass(cls, class_getSuperclass([self class]));
+    objc_msgSend();
+    object_setClass(self, cls);
+    
+}
+
+```
+
+KVC: 键值编码(key-value coding) 是可以通过对象的属性名称直接给属性值赋值的coding,首先搜索有没有setKey方法，如果没有回搜索setisKey方法，如果都没有 会查看``accessInstanceVariablesDirectly``可以设置NO,会抛出异常`setValue:forUndefinedKey:` YES:会按 _key,_isKey,key,isKey顺序搜索成员名，如果还未找到会调用`setValue:forUndefinedKey:`
 
 
