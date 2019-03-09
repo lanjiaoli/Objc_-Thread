@@ -17,6 +17,7 @@
 		0B218B34222CB70C0075B102 /* LearnRuntimeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B218B33222CB70C0075B102 /* LearnRuntimeTests.m */; };
 		0B218B3F222CB70C0075B102 /* LearnRuntimeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B218B3E222CB70C0075B102 /* LearnRuntimeUITests.m */; };
 		0B218B4F222CB7310075B102 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B218B4E222CB7310075B102 /* Person.m */; };
+		0BD901BC2233ECA70044D142 /* Person+category.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD901BB2233ECA70044D142 /* Person+category.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,8 @@
 		0B218B40222CB70C0075B102 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B218B4D222CB7310075B102 /* Person.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		0B218B4E222CB7310075B102 /* Person.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		0BD901BA2233ECA70044D142 /* Person+category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Person+category.h"; sourceTree = "<group>"; };
+		0BD901BB2233ECA70044D142 /* Person+category.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Person+category.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +147,8 @@
 			children = (
 				0B218B4D222CB7310075B102 /* Person.h */,
 				0B218B4E222CB7310075B102 /* Person.m */,
+				0BD901BA2233ECA70044D142 /* Person+category.h */,
+				0BD901BB2233ECA70044D142 /* Person+category.m */,
 			);
 			path = Runtime;
 			sourceTree = "<group>";
@@ -278,6 +283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BD901BC2233ECA70044D142 /* Person+category.m in Sources */,
 				0B218B1C222CB70B0075B102 /* ViewController.m in Sources */,
 				0B218B22222CB70B0075B102 /* LearnRuntime.xcdatamodeld in Sources */,
 				0B218B4F222CB7310075B102 /* Person.m in Sources */,
